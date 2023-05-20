@@ -1,10 +1,15 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Problema1 {
     public static void main(String[] args) {
         Scanner sc= new Scanner(System.in);
+        System.out.println("Ingrese el nombre del hospital");
+        String nombreH= sc.next();
         System.out.println("INGRESE: NombreCiudad, Provincia");
         Ciudad ciudad= new Ciudad(sc.next(),sc.next());
+        System.out.println("Ingrese la direccion del hospital");
+        String direccion= sc.next();
         System.out.println("Ingrese numero de especialidades");
         int nEsp= sc.nextInt();
         double sueldoTotal=0;
@@ -29,18 +34,8 @@ public class Problema1 {
             sueldoTotal+=enfemero[i].getSueldoMensual();
             c++;
         }
-
-        System.out.println(ciudad);
-        System.out.println("Numero especialidades: "+ nEsp);
-        System.out.println("Listado de médic@s");
-        for (int i = 0; i < nMedicos; i++) {
-            System.out.println(medico[i]);
-        }
-        System.out.println("Listado de enfermer@s");
-        for (int i = 0; i < nEnf; i++) {
-            System.out.println(enfemero[i]);
-        }
-        System.out.println("Sueldo Total: "+ sueldoTotal);
+        Hospital hospital= new Hospital(ciudad,enfemero,medico,direccion,nEsp,sueldoTotal,nombreH);
+        System.out.println(hospital);
     }
 }
 class Ciudad{
@@ -135,5 +130,91 @@ class Enfemero{
         return String.format("Nombre Enfermero: %s\n"+
                 "Especialidad: %s\n"+
                 "Sueldo: %.2f\n",this.getNombre(),this.getTipoNC(),this.getSueldoMensual());
+    }
+}
+class Hospital{
+    private Ciudad ciudad;
+    private Enfemero[] enfemero;
+    private Medico[] medico;
+    private String direccion;
+    private int nEspecialidad;
+    private double sueldoTotal;
+    private String nombreHospital;
+
+    public Hospital(Ciudad ciudad, Enfemero[] enfemero, Medico[] medico, String direccion, int nEspecialidad,double sueldoTotal,String nombreHopsital) {
+        this.ciudad = ciudad;
+        this.enfemero = enfemero;
+        this.medico = medico;
+        this.direccion = direccion;
+        this.nEspecialidad = nEspecialidad;
+        this.sueldoTotal= sueldoTotal;
+        this.nombreHospital= nombreHopsital;
+    }
+
+    public Ciudad getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public Enfemero[] getEnfemero() {
+        return enfemero;
+    }
+
+    public void setEnfemero(Enfemero[] enfemero) {
+        this.enfemero = enfemero;
+    }
+
+    public Medico[] getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico[] medico) {
+        this.medico = medico;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public int getnEspecialidad() {
+        return nEspecialidad;
+    }
+
+    public void setnEspecialidad(int nEspecialidad) {
+        this.nEspecialidad = nEspecialidad;
+    }
+
+    public double getSueldoTotal() {
+        return sueldoTotal;
+    }
+
+    public void setSueldoTotal(double sueldoTotal) {
+        this.sueldoTotal = sueldoTotal;
+    }
+
+    public String getNombreHospital() {
+        return nombreHospital;
+    }
+
+    public void setNombreHospital(String nombreHospital) {
+        this.nombreHospital = nombreHospital;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Hospital: %s\n"+
+                "Ciudad: %s\n"+
+                "Direccion: %s\n"+
+                "Numero Especialidades: %d\n"+
+                "Lista Medic@s: %s\n"+
+                "Lista Enfermer@s: %s\n"+
+                "Sueldo Total: %.2f\n",getNombreHospital(),getCiudad(),getDireccion(),getnEspecialidad(),Arrays.toString(medico),Arrays.toString(enfemero),getSueldoTotal());
     }
 }
